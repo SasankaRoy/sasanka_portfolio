@@ -2,28 +2,41 @@ import React, { useState, useEffect } from "react";
 import "./Work.scss";
 import { AiFillEye } from "react-icons/ai";
 import { motion } from "framer-motion";
-// import { Images } from "../../constants";
+import { Images } from "../../constants";
 import { AppWrap } from "../../wrapper";
 import { urlFor, client } from "../../client";
+
+const FilterWork = [
+  {
+    title: "Modern Web Designs.",
+    describtion: "Modern Portfolio Designs With New Features.",
+    imageurl: Images.Portfolio01,
+  },
+  {
+    title: "Simple Website.",
+    describtion: "A simple website with cool animation and features.",
+    imageurl: Images.project2,
+  },
+];
 
 const Work = () => {
   const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
   const [activeFilter, setActiveFilter] = useState("All");
   const [Work, setWork] = useState([]);
-  const [FilterWork, setFilterWork] = useState([]);
+  // const [FilterWork, setFilterWork] = useState([]);
 
-  useEffect(() => {
-    const query = '*[_type == "experience"]';
-    client
-      .fetch(query)
-      .then((data) => {
-        setFilterWork(data);
-        setWork(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const query = '*[_type == "experience"]';
+  //   client
+  //     .fetch(query)
+  //     .then((data) => {
+  //       // setFilterWork(data);
+  //       setWork(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   const handlerFilter = (item) => {
     setActiveFilter(item);
@@ -33,7 +46,7 @@ const Work = () => {
       setAnimateCard([{ y: 0, opacity: 1 }]);
 
       if (item == "All") {
-        setFilterWork(Work);
+        // setFilterWork(Work);
       }
     }, 500);
   };
@@ -64,7 +77,7 @@ const Work = () => {
         {FilterWork.map((work, item) => (
           <div className="app__work-item app__flex" key={item}>
             <div className="app__work-img app__flex">
-              <img src={urlFor(work.imageurl)} alt={work.name} />
+              <img src={work.imageurl} alt={work.name} />
               <motion.div
                 whileHover={{ opacity: [0, 1] }}
                 transition={{
